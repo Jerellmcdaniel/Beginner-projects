@@ -1,0 +1,90 @@
+#include <iostream>
+#include <string>
+using std::string;
+bool intro(void);
+void room (bool enemy, bool treasure, string description);
+//player stat
+string name = "";
+//enemy stats
+string enemyname = "";
+//treasure stats
+string treasurename = "";
+//room descriptions
+const string room1 = "You enter the mouth of the caves.";
+const string room2 = "You adventure deeper into the caves.";
+const string room3 = "You have reached the depths of the caves.";
+int main(void)
+{
+    if(intro())
+            return 0; //if they were scared exit program
+        treasurename = "gold sword";
+        enemyname = "goblin";
+        room(true, true, room1);
+        enemyname = "wombat";
+        room(true, false, room2);
+        enemyname = "hobgoblin lord";
+        treasurename = "treasure horde.";
+        room(true, true, room3);
+        return 0;
+}
+bool intro(void)
+{
+    
+        using std::cout;
+        using std::cin;
+        cout << "brave Knight!!! What is your name? \n";
+        cin >> name;
+        cout << "We are in need of your help, " << name
+            << ". Our village is being overrun \n"
+            << "by the goblins of the Northern Caves."
+            << " We need you to defeat them!\n"
+            << "Will you accept the challenge? \n\n";
+        cout << "1) Yes. \n" 
+             << "2) No. \n\n";
+        int response;
+        cin >> response;
+        return !(response == 1);
+}
+//shows room descriptions and options
+void room(bool enemy, bool treasure, string description)
+{
+        using std::cout;
+        using std::cin;
+        while (true)
+        {
+                cout << description.c_str() << "\n\n";
+                int response = 0;
+                do
+                    {
+                        cout << "What would you like to do?\n";
+                        if(enemy)
+                            cout << "1) Attack the evil "
+                            << enemyname.c_str() << "\n";
+                        else if(!enemy)
+                            cout << " 1) Move to next room.\n";
+                        if(treasure)
+                            cout << " 2) Pick up the "
+                            << treasurename.c_str() << "\n";
+                            cin >> response;
+                    }
+                while(response < 1 || response > 2);
+                switch(response)
+                        {
+                            case 1:
+                                    if(enemy)
+                                    {
+                                        enemy = !enemy;
+                                        cout << "You slay the deadly "
+                                             << enemyname.c_str() << "\n";
+                                    }
+                                    else if(!enemy)
+                                            return;
+                                    break;
+                            case 2:
+                                    treasure = !treasure;
+                                    cout << "You pick up the "
+                                         << treasurename.c_str() << "\n";
+                                    break;
+                        }
+        }
+}
